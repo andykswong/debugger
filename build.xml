@@ -1,0 +1,34 @@
+<project name="debugger" default="package">
+	<property environment="env" />
+
+	<target name="clean" description="Clean up all the build artifacts">
+		<delete includeemptydirs="true">
+			<fileset dir="bin">
+				<include name="**/*.*" />
+				<include name="**/*" />
+			</fileset>
+			<fileset dir="dist">
+				<include name="**/*.*" />
+				<include name="**/*" />
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="init" description="Do some initialization">
+		<mkdir dir="dist" />
+		<mkdir dir="bin"/>
+	</target>
+
+	<target name="compile" depends="init" description="Compile it all">
+		<javac debug="on" deprecation="on" srcdir="src" destdir="bin">
+			<classpath>
+				<pathelement path="lib/junit.jar" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="package" depends="compile" description="Make the jar file">
+		<jar basedir="bin" destfile="dist/debugger.jar" />
+	</target>
+
+</project>
